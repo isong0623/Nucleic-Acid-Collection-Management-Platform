@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/tv_line_1"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="为保证程序的通用性，我们支持APP模板适配。"
+        android:textSize="16sp"
+        android:textColor="#e040fb"
+        android:paddingLeft="8dp"
+        android:paddingRight="8dp"
+        android:layout_marginTop="10dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_line_2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="6dp"
+        android:text="用于适配网络接口及本地数据库存储，需要后端开发者提供网络接口模板，并根据该模板适配对应的数据库模板。"
+        android:textSize="16sp"
+        android:textColor="#651fff"
+        android:paddingLeft="8dp"
+        android:paddingRight="8dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_line_1" />
+
+    <TextView
+        android:id="@+id/tv_jump_manage"
+        android:layout_width="120dp"
+        android:layout_height="30dp"
+        android:background="@drawable/shape_adapt"
+        android:gravity="center"
+        android:text="管理适配模板"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintVertical_bias="0.7"
+        app:layout_constraintTop_toBottomOf="@+id/tv_line_2"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@+id/tv_jump_plan" />
+
+    <TextView
+        android:id="@+id/tv_jump_plan"
+        android:layout_width="120dp"
+        android:layout_height="30dp"
+        android:background="@drawable/shape_adapt_copy"
+        android:gravity="center"
+        android:text="查看适配方案"
+        android:textColor="@color/white"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        app:layout_constraintVertical_bias="0.7"
+        app:layout_constraintTop_toBottomOf="@+id/tv_line_2"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toRightOf="@+id/tv_jump_manage"
+        app:layout_constraintRight_toRightOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="150dp">
+
+    <com.dreaming.hscj.widget.InputView
+        android:id="@+id/iv_offline_input_name"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        app:nText="姓名"
+        app:vHint="请输入姓名"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <com.dreaming.hscj.widget.InputView
+        android:id="@+id/iv_offline_input_id_no"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        app:nText="身份号"
+        app:vHint="请输入身份号"
+        app:layout_constraintTop_toBottomOf="@+id/iv_offline_input_name"/>
+
+    <com.dreaming.hscj.widget.InputView
+        android:id="@+id/iv_offline_input_phone"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        app:nText="手机号"
+        app:vHint="请输入手机号"
+        app:layout_constraintTop_toBottomOf="@+id/iv_offline_input_id_no"/>
+
+    <TextView
+        android:id="@+id/tv_offline_delete"
+        android:layout_width="0dp"
+        android:layout_height="30dp"
+        android:background="@color/material_red_400"
+        android:gravity="center"
+        android:text="删除记录"
+        android:textSize="18sp"
+        android:textColor="@color/white"
+        app:layout_constraintTop_toBottomOf="@+id/iv_offline_input_phone"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/tv_offline_save" />
+
+    <TextView
+        android:id="@+id/tv_offline_save"
+        android:layout_width="0dp"
+        android:layout_height="30dp"
+        android:background="@color/material_blue_400"
+        android:gravity="center"
+        android:text="保存记录"
+        android:textSize="18sp"
+        android:textColor="@color/white"
+        app:layout_constraintTop_toBottomOf="@+id/iv_offline_input_phone"
+        app:layout_constraintLeft_toRightOf="@+id/tv_offline_delete"
+        app:layout_constraintRight_toRightOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

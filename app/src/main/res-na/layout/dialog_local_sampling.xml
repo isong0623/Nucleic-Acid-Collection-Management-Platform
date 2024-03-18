@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="210dp">
+
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:text="本地核酸采样记录(24小时内)"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:gravity="center"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/v_gap"/>
+
+    <View
+        android:id="@+id/v_gap"
+        android:layout_width="match_parent"
+        android:layout_height="0.5sp"
+        android:background="@color/bg_gray"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_title" />
+
+    <com.dreaming.hscj.widget.ShownView
+        android:id="@+id/sv_db_info"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginTop="1dp"
+        app:nText="当前数据库"
+        app:vText="未知"
+        app:layout_constraintTop_toBottomOf="@+id/v_gap"/>
+
+    <com.dreaming.hscj.widget.ShownView
+        android:id="@+id/sv_local_input_info"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginTop="1dp"
+        app:nText="本地已录入"
+        app:vText="未知"
+        app:layout_constraintTop_toBottomOf="@+id/sv_db_info"/>
+
+    <com.dreaming.hscj.widget.ShownView
+        android:id="@+id/sv_local_no_input_info"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginTop="1dp"
+        app:nText="本地未录入"
+        app:vText="未知"
+        app:layout_constraintTop_toBottomOf="@+id/sv_local_input_info"/>
+
+    <TextView
+        android:id="@+id/tv_online"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/shape_match_width_btn"
+        android:gravity="center"
+        android:text="查询网络核酸采样记录"
+        android:textColor="@color/white"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

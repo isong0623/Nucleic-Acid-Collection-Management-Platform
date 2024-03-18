@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="40dp">
+
+    <LinearLayout android:id="@+id/ll_input_barcode"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="6dp"
+            android:text="条码："
+            android:textColor="@color/black"
+            android:textSize="16sp"/>
+
+        <com.dreaming.hscj.widget.ClearEditView
+            android:id="@+id/ev_barcode"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="20dp"
+            android:layout_weight="1"
+            android:background="@null"
+            android:hint="请输入或扫描条码"
+            android:imeOptions="actionSearch"
+            android:inputType="number"
+            android:maxLines="1"
+            android:selectAllOnFocus="true"
+            android:text="" />
+
+        <TextView
+            android:id="@+id/tv_scan_barcode"
+            android:layout_width="50dp"
+            android:layout_height="30dp"
+            android:background="@drawable/shape_donate_bg"
+            android:layout_marginRight="10dp"
+            android:gravity="center"
+            android:text="扫描"
+            android:textStyle="bold"
+            android:textColor="#ffffff"/>
+    </LinearLayout>
+</androidx.cardview.widget.CardView>

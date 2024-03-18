@@ -1,0 +1,124 @@
+<resources>
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <style name="LoginTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">#9e9e9e</item>
+    </style>
+
+    <style name="LoadingDialogStyle">
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowAnimationStyle">@android:style/Animation.Dialog</item>
+        <item name="android:backgroundDimEnabled">false</item>
+    </style>
+
+
+    <declare-styleable name="HwLoadingView">
+        <!--控件大小-->
+        <attr name="hlv_size" format="dimension" />
+        <!--控件颜色-->
+        <attr name="hlv_color" format="color" />
+        <!--转一圈花费时长-->
+        <attr name="hlv_duration" format="integer"/>
+    </declare-styleable>
+
+    <style name="BaseDialogStyle" parent="Theme.AppCompat.DayNight.Dialog.Alert">
+        <!--无边框-->
+        <item name="android:windowFrame">@null</item>
+        <!--浮在Activity之上-->
+        <item name="android:windowIsFloating">true</item>
+        <!--半透明-->
+        <item name="android:windowIsTranslucent">true</item>
+        <!--背景透明-->
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <!--遮盖层-->
+        <item name="android:backgroundDimEnabled">true</item>
+        <!--动画效果-->
+        <item name="android:windowEnterAnimation">@anim/push_scale_in</item>
+        <item name="android:windowExitAnimation">@anim/push_scale_out</item>
+        <!-- Base.Theme.AppCompat.Light.Dialog.Alert 特有的属性，用于指定默认宽度，这里需要禁用 -->
+        <item name="android:windowMinWidthMajor">0dp</item>
+        <item name="android:windowMinWidthMinor">0dp</item>
+        <!-- 解决 ActionBar 占位导致 Dialog 无法全屏显示的问题 -->
+        <item name="windowActionBar">false</item>
+        <!--无标题-->
+        <item name="windowNoTitle">true</item>
+        <!-- ActionMode覆盖Actionbar，不顶下来 -->
+        <item name="windowActionModeOverlay">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+    </style>
+
+    <!--当我们从 A1 启动 A2 时，A1 从屏幕上消失，这个动画叫做 android:activityOpenExitAnimation-->
+    <!--当我们从 A1 启动 A2 时，A2 出现在屏幕上，这个动画叫做 android:activityOpenEnterAnimation-->
+    <!--当我们从 A2 退出回到 A1 时，A2 从屏幕上消失，这个叫做 android:activityCloseExitAnimation-->
+    <!--当我们从 A2 退出回到 A1 时，A1 出现在屏幕上，这个叫做 android:activityCloseEnterAnimation-->
+    <style name="Animation" parent="@android:style/Animation">
+        <item name="android:activityOpenEnterAnimation">@anim/on_activity_open</item>
+        <item name="android:activityOpenExitAnimation">@anim/on_activity_puse</item>
+        <item name="android:activityCloseEnterAnimation">@anim/on_activity_reopen</item>
+        <item name="android:activityCloseExitAnimation">@anim/on_activity_close</item>
+        <item name="android:taskOpenEnterAnimation">@anim/on_activity_open</item>
+        <item name="android:taskOpenExitAnimation">@anim/on_activity_puse</item>
+        <item name="android:taskCloseEnterAnimation">@anim/on_activity_reopen</item>
+        <item name="android:taskCloseExitAnimation">@anim/on_activity_close</item>
+        <item name="android:taskToFrontEnterAnimation">@null</item>
+        <item name="android:taskToFrontExitAnimation">@null</item>
+        <item name="android:taskToBackEnterAnimation">@null</item>
+        <item name="android:taskToBackExitAnimation">@null</item>
+    </style>
+
+    <style name="SplashTheme" parent="AppTheme">
+        <!--在Android 4.4之前的版本上运行，直接跟随系统主题-->
+        <item name="android:windowBackground">@drawable/layer_splash_bg</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:padding">0dp</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowFrame">@null</item>
+    </style>
+
+    <attr name="nText" format="string"/>
+    <attr name="nTextSize" format="dimension"/>
+    <attr name="nTextColor" format="reference|color"/>
+    <attr name="vText" format="string"/>
+    <attr name="vTextSize" format="dimension"/>
+    <attr name="vTextColor" format="reference|color"/>
+
+    <declare-styleable name="ShownView">
+        <attr name="nText"/>
+        <attr name="nTextSize"/>
+        <attr name="nTextColor"/>
+        <attr name="vText"/>
+        <attr name="vTextSize"/>
+        <attr name="vTextColor"/>
+    </declare-styleable>
+
+    <declare-styleable name="InputView">
+        <attr name="nText"/>
+        <attr name="nTextSize"/>
+        <attr name="nTextColor"/>
+        <attr name="vText"/>
+        <attr name="vTextSize"/>
+        <attr name="vTextColor"/>
+        <attr name="vHint" format="string"/>
+    </declare-styleable>
+
+    <declare-styleable name="AppBarView">
+        <attr name="texts" format="string"/>
+        <attr name="is_select" format="boolean"/>
+        <attr name="iv_selected" format="reference"/>
+        <attr name="iv_unselect" format="reference"/>
+    </declare-styleable>
+</resources>

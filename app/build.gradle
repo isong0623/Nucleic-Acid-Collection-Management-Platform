@@ -1,0 +1,135 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 30
+    buildToolsVersion '30.0.0'
+
+    defaultConfig {
+        applicationId "com.dreaming.hscj"
+        minSdkVersion 19
+        targetSdkVersion 30
+        versionCode 20
+        versionName "2.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        multiDexEnabled true
+        ndk {
+            abiFilters 'armeabi-v7a'
+        }
+    }
+
+    signingConfigs {
+        sign {
+            //TODO your jks
+        }
+    }
+
+    buildTypes {
+        debug{
+            minifyEnabled false
+            debuggable true
+            signingConfig signingConfigs.sign
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+        release {
+            minifyEnabled true
+            debuggable false
+            signingConfig signingConfigs.sign
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    sourceSets {
+        main {
+            jniLibs.srcDirs = ['libs']
+            res.srcDirs = [
+                    'src/main/res',
+                    'src/main/res-splash',
+                    'src/main/res-template',
+                    'src/main/res-community',
+                    'src/main/res-na'
+            ]
+        }
+    }
+
+//    packagingOptions {
+//        pickFirst '**/libc++_shared.so'
+//    }
+
+    testOptions {
+        unitTests.returnDefaultValues = true
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: "libs", include: ["*.jar"])
+    implementation 'androidx.appcompat:appcompat:1.1.0'
+    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
+    implementation 'androidx.recyclerview:recyclerview:1.1.0'
+    implementation 'androidx.cardview:cardview:1.0.0'
+    implementation 'androidx.coordinatorlayout:coordinatorlayout:1.1.0'
+    implementation 'com.google.android.material:material:1.0.0'
+
+    testImplementation 'junit:junit:4.12'
+    testImplementation fileTree(dir: "testLib", include: ["*.jar"])
+    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+
+    implementation 'androidx.multidex:multidex:2.0.1'
+
+    implementation project(':libBaiduOcr')
+    implementation project(':libSecurity')
+    implementation project(':libFilePicker')
+    implementation project(':libChineseTTS')
+
+    // https://mvnrepository.com/artifact/com.belerweb/pinyin4j
+    implementation 'com.belerweb:pinyin4j:2.5.1'
+
+    // https://mvnrepository.com/artifact/net.lingala.zip4j/zip4j
+    implementation 'net.lingala.zip4j:zip4j:2.9.1'
+
+//    implementation 'com.tencent.bugly:crashreport:4.0.4'
+    implementation 'com.tencent.bugly:crashreport_upgrade:1.5.23'
+    implementation 'com.tencent.bugly:nativecrashreport:3.9.2'
+
+    // xor加解密库，stringfog中的implementation需依赖此库
+    implementation 'com.github.megatronking.stringfog:xor:3.0.0'
+
+    //数据库加密
+    implementation 'net.zetetic:android-database-sqlcipher:4.5.1'
+
+    implementation 'com.jakewharton:butterknife:10.2.1'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:10.2.1'
+
+    implementation 'com.lzy.net:okgo:3.0.4'
+
+    implementation 'com.github.isong0623:EasyJson:1.2-core'
+    implementation 'com.github.isong0623:EasyDialog:2.2-androidx'
+
+    implementation 'com.google.zxing:core:3.3.3'
+    implementation('com.journeyapps:zxing-android-embedded:3.6.0'){transitive=false}
+
+    implementation 'com.scwang.smart:refresh-layout-kernel:2.0.1'     //核心必须依赖
+    implementation 'com.scwang.smart:refresh-header-material:2.0.1'   //谷歌刷新头
+    implementation 'com.scwang.smart:refresh-footer-ball:2.0.1'       //球脉冲加载
+}
+
+//apply plugin: 'stringfog'
+//stringfog {
+//    enable true
+//    debug false
+//    // 指定加解密的具体实现类，可以用默认实现的xor库或者aes-cbc库，也可以自己定制实现，记得配置dependencies
+//    implementation 'com.github.megatronking.stringfog.xor.StringFogImpl'
+//// 可选：指定密钥生成器，默认使用长度2的随机密钥（每个字符串均有随机密钥）,
+//    //      也可以指定一个固定的密钥：HardCodeKeyGenerator("This is a key")
+////    kg new RandomKeyGenerator()
+//
+//    // 指定需加密的代码包路径，可配置多个，未指定将默认全部加密
+//    fogPackages = ["com.dreaming.hscj"]
+//}

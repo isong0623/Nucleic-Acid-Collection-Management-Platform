@@ -1,0 +1,332 @@
+{
+  "ApiTemplate": {
+    "Api": [
+      {
+        "type": 0,
+        "url": "https://hsjc.example.com/api/login",
+        "interval": "1000",
+        "request": {
+          "type": "POST",
+          "uploading": "PARAM",
+          "params": [
+            ["username", "STRING" , "登录账号", "NOEMPTY"],
+            ["password", "STRING" , "登录密码", "NOEMPTY"]
+          ],
+          "converts": [],
+          "algorithms": []
+        },
+        "response": {
+          "assert": ["R[\"code\"]==0", "R[\"data\"]!=null"],
+          "entity": "R[\"data\"]",
+          "fields": [
+            ["token"        , "STRING"                  , "令牌"        , ""],
+            ["expireAt"     , "DATE:yyyy-MM-dd HH:mm:ss", "到期时间"    , ""]
+          ]
+        }
+      },
+      {
+        "type": 1,
+        "url": "https://hsjc.example.com/api/getCommunityInfo",
+        "interval": "1000",
+        "request": {
+          "type": "POST",
+          "uploading": "JSON",
+          "params": [],
+          "headers": [
+            ["Authorization", "STRING", "接口访问令牌", ""]
+          ],
+          "fillAuthorization": true,
+          "authorization": "Authorization"
+        },
+        "response": {
+          "assert": ["R[\"code\"]==0", "R[\"data\"]!=null"],
+          "entity": "R[\"data\"]",
+          "fields": [
+            ["username"      , "STRING", "登录用户名"  , ""]
+          ]
+        }
+      },
+      {
+        "type": 2,
+        "url": "https://hsjc.example.com/apip/getSamplingRecord",
+        "interval": "1000",
+        "request": {
+          "type": "POST",
+          "uploading": "JSON",
+          "params": [
+            ["tubeNo", "STRING", "采样管ID", "NOEMPTY"]
+          ],
+          "headers": []
+        },
+        "response": {
+          "assert": ["R[\"code\"]==0", "R[\"data\"]!=null"],
+          "entity": "R[\"data\"]",
+          "fields": [
+            [
+              ["peopleId"    , "STRING", "用户ID"    , ""],
+              ["idCard"      , "STRING", "身份号"    , ""],
+              ["memberName"  , "STRING", "姓名"      , ""],
+              ["address"     , "STRING", "地址"      , ""],
+              ["mobile"      , "STRING", "手机"      , ""],
+              ["samplingName", "STRING", "采集点名称", ""],
+              ["testStatus"  , "STRING", "采集状态"  , ""]
+            ]
+          ]
+        }
+      },
+      {
+        "type": 3,
+        "url": "https://hsjc.example.com/api/getMemberInfo",
+        "interval": "1000",
+        "request": {
+          "type": "POST",
+          "uploading": "JSON",
+          "params": [
+            ["idCard", "STRING", "身份号", "NOEMPTY"]
+          ],
+          "headers": [
+            ["Authorization", "STRING", "接口访问令牌", ""]
+          ],
+          "fillAuthorization": true,
+          "authorization": "Authorization"
+        },
+        "response": {
+          "assert": ["R[\"code\"]==0"],
+          "entity": "R[\"data\"][\"result\"]",
+          "fields": [
+            ["id"            , "STRING"                  , "id"      , ""    ],
+            ["memberName"    , "STRING"                  , "姓名"    , ""    ],
+            ["idCard"        , "STRING"                  , "身份号", ""    ],
+            ["mobile"        , "STRING"                  , "手机"    , ""    ],
+            ["sex"           , "INTEGER"                 , "性别"    , ""    ]
+          ]
+        }
+      },
+      {
+        "type": 4,
+        "url": "https://hsjc.example.com/api/commitSampling",
+        "interval": "1000",
+        "request": {
+          "type": "POST",
+          "uploading": "JSON",
+          "params": [
+            ["memberName" , "STRING", "姓名"       , "NOEMPTY" ],
+            ["idCard"     , "STRING", "身份号"     , "NOEMPTY" ],
+            ["idType"     , "STRING", "认证类型"   , "1"       ],
+            ["mobile"     , "STRING", "电话"       , "NOEMPTY" ],
+            ["tubeNo"     , "STRING", "采样试管编号", ""        , "" , "INPUT"],
+			["peopleId"   , "STRING", "用户ID"      , ""       ]
+          ],
+          "headers": [
+            ["Authorization", "STRING", "接口访问令牌", ""]
+          ],
+          "fillAuthorization": true,
+          "authorization": "Authorization"
+        },
+        "response": {
+          "assert": ["R[\"code\"]==0"],
+          "entity": "R[\"data\"]",
+          "fields": [
+            ["tubeNo" , "STRING", "试管编号", ""],
+            ["num"    , "STRING", "人数"    , ""]
+          ]
+        }
+      },
+      {
+        "type": 5,
+        "url": "https://hsjc.example.com/api/delSampling",
+        "interval": "1000",
+        "request": {
+          "type": "POST",
+          "uploading": "JSON",
+          "params": [
+            ["samplingId"    , "STRING", "采样ID"    , "NOEMPTY" , "" , "Api[6][\"id\"]"],
+            ["reason"        , "STRING", "认证类型"  , ""        , "" , "INPUT" ]
+          ],
+          "headers": [
+            ["Authorization", "STRING", "接口访问令牌", ""]
+          ],
+          "fillAuthorization": true,
+          "authorization": "Authorization"
+        },
+        "response": {
+          "assert": ["R[\"code\"]==0"],
+          "entity": "R[\"data\"]",
+          "fields": []
+        }
+      },
+      {
+        "type": 6,
+        "url": "https://hsjc.qingdao.gov.cn/api/histOfSampling",
+        "interval": "1000",
+        "request": {
+          "type": "POST",
+          "uploading": "JSON",
+          "params": [
+            ["pageNum"  , "INTEGER", "查询页号", "1"   , "{\"String.format\":\"第%d页\"}", "INPUT"],
+            ["pageSize" , "INTEGER", "分页页数", "10"  , "{\"String.format\":\"共%d页\"}", "INPUT"],
+            ["idCard"   , "STRING" , "身份号", "null", ""                              , "INPUT","datablock@idCard"],
+            ["startTime", "DATE"   , "开始时间", "null", ""                              , "INPUT"],
+            ["endTime"  , "DATE"   , "结束时间", "null", ""                              , "INPUT"],
+            ["tubeNo"   , "STRING" , "试管编号", "null", ""                              , "INPUT"]
+          ],
+          "headers": [
+            ["Authorization", "STRING", "接口访问令牌", ""]
+          ],
+          "fillAuthorization": true,
+          "authorization": "Authorization"
+        },
+        "response": {
+          "assert": ["R[\"code\"]==0"],
+          "entity": "R[\"data\"][\"result\"]",
+          "fields": [
+            ["id"              , "STRING", "采样ID"     , ""],
+            ["memberName"      , "STRING", "姓名"       , ""],
+            ["address"         , "STRING", "地址"       , ""],
+            ["mobile"          , "STRING", "手机号"     , ""],
+            ["idCard"          , "STRING", "身份号"     , ""],
+            ["tubeNo"          , "STRING", "试管编号"    , ""],
+            ["gatheringTime"   , "STRING", "采集时间"    , ""],
+            ["samplingId"      , "STRING", "采样点编号"  , ""],
+            ["samplingName"    , "STRING", "采样点名称"  , ""],
+			["peopleId"        , "STRING", "用户ID"      , ""]
+          ]
+        }
+      }
+    ],
+    "ApiConfig": {
+      "locate": {
+        "authorization": {
+          "token"  : "Api[0][\"token\"]",
+          "expired": "Api[0][\"expireAt\"]"
+        },
+        "community_info": {
+          "username"      : "Api[0][\"username\"]",
+          "isAdmin"       : "Api[0][\"isAdmin\"]",
+          "memberName"    : "Api[0][\"memberName\"]",
+          "mobile"        : "Api[0][\"mobile\"]",
+          "regionCode"    : "Api[0][\"regionCode\"]",
+          "regionName"    : "Api[0][\"regionName\"]",
+          "gridId"        : "Api[0][\"gridId\"]",
+          "gridName"      : "Api[0][\"gridName\"]",
+          "samplingCode"  : "Api[1][\"samplingCode\"]",
+          "samplingName"  : "Api[1][\"samplingName\"]"
+        },
+        "scan": {
+          "barcode": ["Api[2][\"tubeNo\"]","Api[4][\"tubeNo\"]","Api[6][\"tubeNo\"]"],
+          "id card": ["Api[3][\"idCard\"]","Api[4][\"idCard\"]" ,"Api[6][\"idCard\"]"]
+        },
+		"card": {
+          "normal": [
+            "ID Card",
+            "Passport Card",
+            "HM Card",
+            "TW Card",
+            "Officer Card"
+          ],
+          "other": []
+        },
+        "id": ["Api[3][\"id\"]"]
+      },
+      "test": {
+        "account": "",
+        "password": ""
+      },
+      "permission": {
+        "allow remember password": true,
+        "allow auto login": true,
+        "allow auto refresh token": true
+      }
+    }
+  },
+
+  "DatabaseTemplate": {
+    "DB": [
+      {
+        "type":0,
+        "description": "基础导入数据库",
+        "password": "vl8eUhoajsTRHLu8bMlRIcw3K3ljXxmt",
+        "fields": [
+          ["idCard"    ,"STRING","身份号码","NOEMPTY"],
+          ["memberName","STRING","身份号姓名","NOEMPTY"]
+        ],
+        "usage": {
+          "setter": {
+            "id_card_no"  : ["EXCEL"],
+            "id_card_name": ["EXCEL"]
+          },
+          "getter": {
+            "id_card_no": ["Api[3][\"idCard\"]"]
+          }
+        }
+      },
+      {
+        "type": 1,
+        "description": "采样上传数据库",
+        "password": "l56gaaEJRvq5HLfPFERxrFe3aCTkpG4l",
+        "fields": [
+          ["idCard"        , "STRING"                  , "身份号"    , "NOEMPTY"],
+          ["memberName"    , "STRING"                  , "姓名"      , "NOEMPTY"],
+          ["sex"           , "INTEGER"                 , "性别"      , ""       ,"{\"1\":\"男\",\"0\":\"女\"}"],
+          ["mobile"        , "STRING"                  , "手机"      , "NOEMPTY"],
+          ["address"       , "STRING"                  , "地址"      , ""       ],
+          ["createdTime"   , "DATE:yyyy-MM-dd HH:mm:ss", "创建时间"  , "NOW"    ],
+          ["updatedTime"   , "DATE:yyyy-MM-dd HH:mm:ss", "更新时间"  , "NOW"    ],
+		  ["id"            , "STRING"                  , "平台用户ID", ""       ]
+        ],
+        "usage": {
+          "setter": {
+            "memberName"    : ["Api[3][\"memberName\"]"],
+            "idCard"        : ["Api[3][\"idCard\"]"    ],
+            "sex"           : ["Api[3][\"sex\"]"       ],
+            "mobile"        : ["Api[3][\"mobile\"]"    ],
+            "address"       : ["Api[3][\"address\"]"   ],
+			"id"            : ["Api[3][\"id\"]"        ,"Api[2][\"peopleId\"]"     ,"Api[6][\"peopleId\"]"]
+          },
+          "getter": {
+            "memberName"    : ["Api[4][\"memberName\"]"],
+            "idCard"        : ["Api[4][\"idCard\"]"     ,"Api[3][\"idCard\"]"      ,"Api[6][\"idCard\"]"],
+            "mobile"        : ["Api[4][\"mobile\"]"    ],
+            "address"       : ["Api[4][\"address\"]"   ],
+			"id"            : ["Api[4][\"peopleId\"]"  ]
+          }
+        }
+      },
+      {
+        "type": 2,
+        "description": "核酸检测分组",
+        "password": "LLGHEX4PVWYDynydFzdw1083solOd4hO",
+        "fields": [
+          ["group_id"  ,"STRING","组号"      ,"NOEMPTY"],
+          ["idCard"    ,"STRING","身份号"  ,"NOEMPTY"],
+          ["memberName","STRING","身份号姓名","NOEMPTY"]
+        ],
+        "usage": {
+          "setter": {
+            "group_id"    : ["INPUT"],
+            "id_card_id"  : ["INPUT"],
+            "id_card_name": ["INPUT"]
+          },
+          "getter": {
+            "group_id"    : ["OUTPUT"],
+            "id_card_id"  : ["OUTPUT"],
+            "id_card_name": ["OUTPUT"]
+          }
+        }
+      }
+    ],
+    "DBSetting": {
+      "group member num": 10,
+      "region name": "",
+      "region code": "",
+	  "password":"",
+      "net api provider": ",
+      "unify social credit codes": "",
+      "net api version": 1,
+      "net api introduce": [
+        ""
+      ]
+    }
+  }
+}
+

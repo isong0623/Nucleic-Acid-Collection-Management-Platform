@@ -1,0 +1,25 @@
+plugins {
+    id 'java'
+}
+
+group 'com.dreaming.hscj'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation fileTree(dir: "libs", include: ["*.jar"])
+
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
+}
+
+test {
+    useJUnitPlatform()
+}
+
+subprojects {
+    [compileJava,compileTestJava,javadoc]*.options*.encoding*.output = 'UTF-8'
+}

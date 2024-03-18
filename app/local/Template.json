@@ -1,0 +1,514 @@
+{
+  "ApiTemplate": {
+    "Api": [
+      {
+        "type": 0,
+        "url": "https://hsjc.qingdao.gov.cn/api/login",
+        "interval": "1000",
+        "request": {
+          "type": "POST",
+          "uploading": "PARAM",
+          "params": [
+            ["username", "STRING" , "登录账号", "NOEMPTY"],
+            ["password", "STRING" , "登录密码", "NOEMPTY"],
+            ["point"   , "INTEGER", ""       , "1"],
+            ["appId"   , "STRING" , "设备号" ,  "A424625631078450" ],
+            ["skey"    , "STRING" , ""       , "AH7KqML9YtSSESUxROPTnjczbxNsDcW4Up2/+6evFEk="]
+          ],
+          "converts": ["password","username","skey"],
+          "algorithms": [
+            [
+              ["ENCRYPT","TheKeyOfmyDatadx","AES/ECB/PKCS7Padding","TEST","jhM7vsXz+nSq5Gs5nDVVZQ=="]
+            ],
+            [
+              ["ENCRYPT","TheKeyOfmyDatadx","AES/ECB/PKCS7Padding"]
+            ],
+            [
+              ["ENCRYPT","TheKeyOfmyDatadx","AES/ECB/PKCS7Padding"]
+            ]
+          ]
+        },
+        "response": {
+          "assert": ["R[\"code\"]==0", "R[\"data\"]!=null"],
+          "entity": "R[\"data\"]",
+          "fields": [
+            ["token"     , "STRING"                  , "令牌"       , ""],
+            ["expireAt"  , "DATE:yyyy-MM-dd HH:mm:ss", "到期时间"    , ""],
+            ["username"  , "STRING"                  , "登录用户名"  , ""],
+            ["isAdmin"   , "BOOL"                    , "管理权限"    , ""],
+            ["fullName"  , "STRING"                  , "管理员"      , ""],
+            ["mobile"    , "STRING"                  , "管理员手机号" , ""],
+            ["regionCode", "STRING"                  , "市区号"      , ""],
+            ["regionName", "STRING"                  , "市区"        , ""],
+            ["gridId"    , "STRING"                  , "乡镇号"      , ""],
+            ["gridName"  , "STRING"                  , "乡镇"        , ""],
+            ["siteCode"  , "STRING"                  , "采样点ID"    , ""],
+            ["siteName"  , "STRING"                  , "采样点"      , ""],
+            ["testSiteId", "STRING"                  , "测试点ID"    , ""]
+          ]
+        }
+      },
+      {
+        "type": 1,
+        "url": "https://hsjc.qingdao.gov.cn/api/user/getUserToken",
+        "interval": "1000",
+        "request": {
+          "type": "POST",
+          "uploading": "JSON",
+          "params": [],
+          "headers": [
+            ["Authorization", "STRING", "接口访问令牌", ""]
+          ],
+          "fillAuthorization": true,
+          "authorization": "Authorization"
+        },
+        "response": {
+          "assert": ["R[\"code\"]==0", "R[\"data\"]!=null"],
+          "entity": "R[\"data\"]",
+          "fields": [
+            ["username"  , "STRING", "登录用户名"  , ""],
+            ["mobile"    , "STRING", "管理员手机号", ""],
+            ["regionCode", "STRING", "市区号"      , ""],
+            ["regionName", "STRING", "市区"        , ""],
+            ["gridId"    , "STRING", "乡镇号"      , ""],
+            ["siteCode"  , "STRING", "采样点ID"    , ""],
+            ["siteName"  , "STRING", "采样点"      , ""]
+          ]
+        }
+      },
+      {
+        "type": 2,
+        "url": "https://hsjc.qingdao.gov.cn/api/app/getTestedListByTubeNum",
+        "interval": "1000",
+        "request": {
+          "type": "POST",
+          "uploading": "PARAM",
+          "params": [
+            ["tubeNum", "STRING", "采样管ID", "NOEMPTY", "" , "INPUT"]
+          ],
+          "headers": []
+        },
+        "response": {
+          "assert": ["R[\"code\"]==0", "R[\"data\"]!=null"],
+          "entity": "R[\"data\"]",
+          "fields": [
+            [
+              [
+                ["peopleId"    , "STRING" , "用户ID"    , ""],
+                ["idCard"      , "STRING" , "身份号"    , ""],
+                ["fullName"    , "STRING" , "姓名"      , ""],
+                ["address"     , "STRING" , "地址"      , ""],
+                ["mobile"      , "STRING" , "手机"      , ""],
+                ["testSiteId"  , "STRING" , "采集点ID"  , ""],
+                ["testSiteName", "STRING" , "采集点名称", ""],
+                ["testStatus"  , "INTEGER", "采集状态"  , "", "{\"0\":\"待送检\",\"1\":\"已送检\",\"2\":\"已送检\",\"3\":\"已完成\"}"]
+              ]
+            ]
+          ]
+        }
+      },
+      {
+        "type": 3,
+        "url": "https://hsjc.qingdao.gov.cn/api/people/findPeopleListForInput",
+        "interval": "1000",
+        "request": {
+          "type": "POST",
+          "uploading": "JSON",
+          "params": [
+            ["idCard"  , "STRING" , "身份号", "NOEMPTY"],
+            ["pageNum" , "INTEGER", "页号"  , "1" ],
+            ["pageSize", "INTEGER", "页数"  , "30"]
+          ],
+          "headers": [
+            ["Authorization", "STRING", "接口访问令牌", ""]
+          ],
+          "fillAuthorization": true,
+          "authorization": "Authorization"
+        },
+        "response": {
+          "assert": ["R[\"code\"]==0"],
+          "entity": "R[\"data\"][\"result\"]",
+          "fields": [
+            ["id"            , "STRING"                  , "id"     , ""    ],
+            ["fullName"      , "STRING"                  , "姓名"    , ""    ],
+            ["idCard"        , "STRING"                  , "身份号"  , ""    ],
+            ["mobile"        , "STRING"                  , "手机"    , ""    ],
+            ["category"      , "STRING"                  , "类别"    , "null"],
+            ["primaryId"     , "STRING"                  , "街道id"  , "null"],
+            ["secondaryId"   , "STRING"                  , "社区id"  , "null"],
+            ["thirdId"       , "STRING"                  , "?"       , "null"],
+            ["regionCode"    , "STRING"                  , "区域码"   , ""    ],
+            ["address"       , "STRING"                  , "地址"     , ""    ],
+            ["remark"        , "STRING"                  , "备注"     , "null"],
+            ["source"        , "INTEGER"                 , "?"        , "0"   ],
+            ["createdTime"   , "DATE:yyyy-MM-dd HH:mm:ss", "创建时间" , ""    ],
+            ["updatedTime"   , "DATE:yyyy-MM-dd HH:mm:ss", "更新时间" , ""    ],
+            ["openId"        , "STRING"                  , "?"        , "null"],
+            ["status"        , "STRING"                  , "?"        , "null"],
+            ["delFlag"       , "BOOL"                    , "?"        , ""    ],
+            ["checkStatus"   , "INTEGER"                 , "?"        , ""    ],
+            ["sex"           , "INTEGER"                 , "性别1男"  , ""    ],
+            ["idType"        , "INTEGER"                 , "认证类型" , ""   ],
+            ["createdBy"     , "STRING"                  , "创建人员" , "null"],
+            ["updatedBy"     , "STRING"                  , "更新人员" , "null"],
+            ["regionName"    , "STRING"                  , "区域"     , "null"],
+            ["gridName"      , "STRING"                  , "街道"     , ""    ],
+            ["secondGridName", "STRING"                  , "居委会"   , ""    ],
+            ["thirdGridName" , "STRING"                  , "小区"     , ""    ],
+            ["gridCode"      , "STRING"                  , "街道号"   , ""    ],
+            ["secondGridCode", "STRING"                  , "居委会号" , ""    ],
+            ["thirdGridCode" , "STRING"                  , "小区号"   , ""    ],
+            ["isNew"         , "STRING"                  , "是否新建" , "1"   ],
+            ["isPc"          , "STRING"                  , "电脑录入" , "0"   ],
+            ["testNum"       , "STRING"                  , "试管编号" , "null"]
+          ]
+        }
+      },
+      {
+        "type": 4,
+        "url": "https://hsjc.qingdao.gov.cn/api/testNum/confirmed",
+        "interval": "1000",
+        "request": {
+          "type": "POST",
+          "uploading": "JSON",
+          "params": [
+            ["fullName"      , "STRING", "姓名"      , "NOEMPTY"],
+            ["idCard"        , "STRING", "身份号"    , "NOEMPTY"],
+            ["idType"        , "STRING", "认证类型"  , "1"       ],
+            ["mobile"        , "STRING", "电话"      , "NOEMPTY"],
+            ["tubeCapacity"  , "STRING", "试管容量"   , "20"     ],
+            ["streetId"      , "STRING", "街道（镇）" , ""       ],
+            ["communityId"   , "STRING", "社区ID"     , ""       ],
+            ["zoneId"        , "STRING", "?"         , "null"   ],
+            ["category"      , "STRING", "人员类别"   , "nullstr"],
+            ["address"       , "STRING", "地址"       , ""       ],
+            ["remark"        , "STRING", "附加说明"   , ""       ],
+            ["gridName"      , "STRING", "街道"       , ""       ],
+            ["secondGridName", "STRING", "居委会"     , ""       ],
+            ["thirdGridName" , "STRING", "小区"       , "null"   ],
+            ["testNum"       , "STRING", "采样试管编号", ""       ,"" , "INPUT"],
+            ["status"        , "STRING", "状态"       , "null"   ],
+            ["primaryId"     , "STRING", "?"          , ""       ],
+            ["secondaryId"   , "STRING", "?"          , ""       ],
+            ["thirdId"       , "STRING", "?"          , ""       ],
+            ["isNew"         , "STRING", "?"          , "1"      ],
+            ["isPc"          , "INTEGER", "是否是PC"  , "0"       ]
+          ],
+          "headers": [
+            ["Authorization", "STRING", "接口访问令牌", ""]
+          ],
+          "fillAuthorization": true,
+          "authorization": "Authorization"
+        },
+        "response": {
+          "assert": ["R[\"code\"]==0"],
+          "entity": "R[\"data\"]",
+          "fields": [
+            ["testNum", "STRING", "试管编号", ""],
+            ["value"  , "STRING", "状态"    , ""]
+          ]
+        }
+      },
+      {
+        "type": 5,
+        "url": "https://hsjc.qingdao.gov.cn/api/testResult/delTestResult",
+        "interval": "1000",
+        "request": {
+          "type": "POST",
+          "uploading": "JSON",
+          "params": [
+            ["ids"    , "STRING", "采样ID"    , "NOEMPTY" , "" , "Api[6][\"id\"]"],
+            ["reason" , "STRING", "认证类型"  , ""        , "" , "INPUT" ]
+          ],
+          "headers": [
+            ["Authorization", "STRING", "接口访问令牌", ""]
+          ],
+          "fillAuthorization": true,
+          "authorization": "Authorization"
+        },
+        "response": {
+          "assert": ["R[\"code\"]==0", "R[\"data\"]==true"],
+          "entity": "R[\"data\"]",
+          "fields": []
+        }
+      },
+      {
+        "type": 6,
+        "url": "https://hsjc.qingdao.gov.cn/api/testResult/findTestResult",
+        "interval": "1000",
+        "request": {
+          "type": "POST",
+          "uploading": "JSON",
+          "params": [
+            ["pageNum"     , "INTEGER"                  , "查询页号", "1"   , "{\"String.format\":\"第%d页\"}"                                     ,"INPUT"],
+            ["pageSize"    , "INTEGER"                  , "分页页数", "30"  , "{\"String.format\":\"共%d页\"}"                                     ,"INPUT"],
+            ["idCard"      , "STRING"                   , "身份号"  , "null", ""                                                                    ,"INPUT","datablock@idCard"],
+            ["startTime"   , "DATE:yyyy-MM-dd HH:mm:ss" , "开始时间", "null", ""                                                                   ,"INPUT"],
+            ["endTime"     , "DATE:yyyy-MM-dd HH:mm:ss" , "结束时间", "null", ""                                                                   ,"INPUT"],
+            ["testNum"     , "STRING"                   , "试管编号", "null", ""                                                                   ,"INPUT"],
+            ["testStatus"  , "STRING"                   , "采集状态", "null", "{\"0\":\"待送检\",\"1\":\"已送检\",\"2\":\"已送检\",\"3\":\"已完成\"}" ,"INPUT"]
+          ],
+          "headers": [
+            ["Authorization", "STRING", "接口访问令牌", ""]
+          ],
+          "fillAuthorization": true,
+          "authorization": "Authorization"
+        },
+        "response": {
+          "assert": ["R[\"code\"]==0"],
+          "entity": "R[\"data\"][\"result\"]",
+          "fields": [
+            ["id"              , "STRING", "采样ID"     , ""],
+            ["peopleId"        , "STRING", "人员ID"     , ""],
+            ["fullName"        , "STRING", "姓名"       , ""],
+            ["address"         , "STRING", "地址"       , ""],
+            ["mobile"          , "STRING", "手机号"     , ""],
+            ["idCard"          , "STRING", "身份号"     , ""],
+            ["testNum"         , "STRING", "试管编号"   , ""],
+            ["gatheringTime"   , "STRING", "采集时间"    , ""],
+            ["testOrgId"       , "STRING", "采样组织编号", ""],
+            ["testOrgName"     , "STRING", "采样组织名称", ""],
+            ["testSiteId"      , "STRING", "采样点编号"  , ""],
+            ["testSiteName"    , "STRING", "采样点名称"  , ""]
+          ]
+        }
+      }
+    ],
+    "ApiConfig": {
+      "locate": {
+        "authorization": {
+          "token"  : "Api[0][\"token\"]",
+          "expired": "Api[0][\"expireAt\"]"
+        },
+        "community_info": {
+          "username"  : "Api[0][\"username\"]",
+          "isAdmin"   : "Api[0][\"isAdmin\"]",
+          "fullName"  : "Api[0][\"fullName\"]",
+          "mobile"    : "Api[0][\"mobile\"]",
+          "regionCode": "Api[0][\"regionCode\"]",
+          "regionName": "Api[0][\"regionName\"]",
+          "gridId"    : "Api[0][\"gridId\"]",
+          "gridName"  : "Api[0][\"gridName\"]",
+          "siteCode"  : "Api[0][\"siteCode\"]",
+          "siteName"  : "Api[0][\"siteName\"]",
+          "testSiteId": "Api[0][\"testSiteId\"]"
+        },
+        "scan": {
+          "barcode": ["Api[2][\"testNum\"]","Api[4][\"testNum\"]","Api[6][\"testNum\"]"],
+          "id card": ["Api[3][\"idCard\"]" ,"Api[4][\"idCard\"]" ,"Api[6][\"idCard\"]"]
+        },
+        "card": {
+          "normal": [
+            "ID Card",
+            "Passport Card",
+            "HM Card",
+            "TW Card",
+            "Officer Card"
+          ],
+          "other": [],
+          "type field": ["Api[3][\"idType\"]"],
+          "type mapper": {
+            "ID Card": "1",
+            "Passport Card": "2",
+            "HM Card": "3",
+            "TW Card": "3",
+            "Officer Card": "3"
+          }
+        },
+        "id": ["Api[3][\"id\"]"],
+        "phone": ["Api[4][\"mobile\"]"],
+        "query": {
+          "request": {
+            "page index": "Api[6][\"pageNum\"]",
+            "page size" : "Api[6][\"pageSize\"]",
+            "start date": "Api[6][\"startTime\"]",
+            "end date"  : "Api[6][\"endTime\"]",
+            "tub no"    : "Api[6][\"testNum\"]",
+            "id no"     : "Api[6][\"idCard\"]"
+          },
+          "response": {
+            "id no": "Api[6][\"idCard\"]",
+            "name": "Api[6][\"fullName\"]",
+            "sampling time": "Api[6][\"gatheringTime\"]",
+            "phone": "Api[6][\"mobile\"]",
+            "address": "Api[6][\"address\"]",
+            "tub no": "Api[6][\"testNum\"]"
+          }
+        }
+      },
+      "test": {
+        "account": "",
+        "password": ""
+      },
+      "permission": {
+        "allow remember password": true,
+        "allow auto login": true,
+        "allow auto refresh token": true
+      }
+    }
+  },
+
+  "DatabaseTemplate": {
+    "DB": [
+      {
+        "type":0,
+        "description": "基础导入数据库",
+        "password": "LotzPOwVFA58GLpJ",
+        "fields": [
+          ["idCard"  ,"STRING","身份号","NOEMPTY"],
+          ["fullName","STRING","身份证姓名","NOEMPTY"]
+        ],
+        "usage": {
+          "setter": {
+            "id_card_no"  : ["EXCEL"],
+            "id_card_name": ["EXCEL"]
+          },
+          "getter": {
+            "id_card_no": ["Api[3][\"idCard\"]"]
+          }
+        }
+      },
+      {
+        "type": 1,
+        "description": "采样上传数据库",
+        "password": "fUjrYPVaIAsv7ayj",
+        "fields": [
+          ["idCard"        , "STRING"                  , "身份号"  , "NOEMPTY"],
+          ["fullName"      , "STRING"                  , "姓名"    , "NOEMPTY"],
+          ["sex"           , "INTEGER"                 , "性别"     , ""       ,"{\"1\":\"男\",\"0\":\"女\"}"],
+          ["mobile"        , "STRING"                  , "手机"    , "NOEMPTY"],
+          ["gridName"      , "STRING"                  , "街道"    , ""       ],
+          ["secondGridName", "STRING"                  , "居委会"  , ""       ],
+          ["thirdGridName" , "STRING"                  , "小区"    , "null"   ],
+          ["address"       , "STRING"                  , "地址"    , ""       ],
+          ["category"      , "STRING"                  , "人员类别", "nullstr"],
+          ["remark"        , "STRING"                  , "附加说明", ""       ],
+          ["createdTime"   , "DATE:yyyy-MM-dd HH:mm:ss", "创建时间", "NOW"    ],
+          ["updatedTime"   , "DATE:yyyy-MM-dd HH:mm:ss", "更新时间", "NOW"    ],
+
+          ["idType"        , "STRING"                  , "认证类型" , "1"     ],
+          ["streetId"      , "STRING"                  , "街道(镇)" , ""      ],
+          ["communityId"   , "STRING"                  , "社区ID"  , ""       ],
+          ["zoneId"        , "STRING"                  , "?"       , "null"   ],
+          ["testNum"       , "STRING"                  , "试管编号" , ""       ],
+          ["status"        , "STRING"                  , "状态"    , "null"   ],
+          ["primaryId"     , "STRING"                  , "id1"     , ""       ],
+          ["secondaryId"   , "STRING"                  , "id2"     , ""       ],
+          ["thirdId"       , "STRING"                  , "id3"     , "null"   ],
+          ["isNew"         , "STRING"                  , "新增录入" , "1"      ,"{\"1\":\"是\",\"0\":\"否\"}"],
+          ["isPc"          , "INTEGER"                 , "是否是PC" , "0"      ,"{\"1\":\"是\",\"0\":\"否\"}"],
+          ["id"            , "STRING"                  , "平台编号" , ""      ],
+          ["regionCode"    , "STRING"                  , "区域码"   , ""       ],
+          ["source"        , "INTEGER"                 , "来源类别" , "0"      ],
+          ["openId"        , "STRING"                  , "?"        , "null"   ],
+          ["delFlag"       , "BOOL"                    , "删除标记" , ""       ],
+          ["checkStatus"   , "INTEGER"                 , "检测状态" , ""       ],
+          ["createdBy"     , "STRING"                  , "创建人员" , "null"   ],
+          ["updatedBy"     , "STRING"                  , "更新人员" , "null"   ],
+          ["regionName"    , "STRING"                  , "区域"     , "null"   ],
+          ["gridCode"      , "STRING"                  , "街道号"   , ""       ],
+          ["secondGridCode", "STRING"                  , "居委会号" , ""       ],
+          ["thirdGridCode" , "STRING"                  , "小区号"   , ""       ]
+        ],
+        "usage": {
+          "setter": {
+            "fullName"      : ["Api[3][\"fullName\"]"      ,"Api[2][\"fullName\"]"],
+            "idCard"        : ["Api[3][\"idCard\"]"        ],
+            "idType"        : ["Api[3][\"idType\"]"        ],
+            "mobile"        : ["Api[3][\"mobile\"]"        ,"Api[2][\"mobile\"]"],
+            "streetId"      : ["Api[3][\"streetId\"]"      ],
+            "communityId"   : ["Api[3][\"communityId\"]"   ],
+            "zoneId"        : ["Api[3][\"zoneId\"]"        ],
+            "category"      : ["Api[3][\"category\"]"      ],
+            "address"       : ["Api[3][\"address\"]"       ],
+            "remark"        : ["Api[3][\"remark\"]"        ],
+            "gridName"      : ["Api[3][\"gridName\"]"      ],
+            "secondGridName": ["Api[3][\"secondGridName\"]"],
+            "thirdGridName" : ["Api[3][\"thirdGridName\"]" ],
+            "testNum"       : ["Api[3][\"testNum\"]"       ],
+            "status"        : ["Api[3][\"status\"]"        ],
+            "primaryId"     : ["Api[3][\"primaryId\"]"     ],
+            "secondaryId"   : ["Api[3][\"secondaryId\"]"   ],
+            "thirdId"       : ["Api[3][\"thirdId\"]"       ],
+            "isNew"         : ["Api[3][\"isNew\"]"         ],
+            "isPc"          : ["Api[3][\"isPc\"]"          ],
+            "id"            : ["Api[3][\"id\"]"            ,"Api[2][\"peopleId\"]"     ,"Api[6][\"peopleId\"]"],
+            "regionCode"    : ["Api[3][\"regionCode\"]"    ],
+            "source"        : ["Api[3][\"source\"]"        ],
+            "createdTime"   : ["Api[3][\"createdTime\"]"   ],
+            "updatedTime"   : ["Api[3][\"updatedTime\"]"   ],
+            "openId"        : ["Api[3][\"openId\"]"        ],
+            "delFlag"       : ["Api[3][\"delFlag\"]"       ],
+            "checkStatus"   : ["Api[3][\"checkStatus\"]"   ],
+            "sex"           : ["Api[3][\"sex\"]"           ],
+            "createdBy"     : ["Api[3][\"createdBy\"]"     ],
+            "updatedBy"     : ["Api[3][\"updatedBy\"]"     ],
+            "regionName"    : ["Api[3][\"regionName\"]"    ],
+            "gridCode"      : ["Api[3][\"gridCode\"]"      ],
+            "secondGridCode": ["Api[3][\"secondGridCode\"]"],
+            "thirdGridCode" : ["Api[3][\"thirdGridCode\"]" ]
+          },
+          "getter": {
+            "fullName"      : ["Api[4][\"fullName\"]"      ],
+            "idCard"        : ["Api[4][\"idCard\"]"        ,"Api[3][\"idCard\"]", "Api[6][\"idCard\"]"],
+            "idType"        : ["Api[4][\"idType\"]"        ],
+            "mobile"        : ["Api[4][\"mobile\"]"        ],
+            "streetId"      : ["Api[4][\"streetId\"]"      ],
+            "communityId"   : ["Api[4][\"communityId\"]"   ],
+            "zoneId"        : ["Api[4][\"zoneId\"]"        ],
+            "category"      : ["Api[4][\"category\"]"      ],
+            "address"       : ["Api[4][\"address\"]"       ],
+            "remark"        : ["Api[4][\"remark\"]"        ],
+            "gridName"      : ["Api[4][\"gridName\"]"      ],
+            "secondGridName": ["Api[4][\"secondGridName\"]"],
+            "thirdGridName" : ["Api[4][\"thirdGridName\"]" ],
+            "testNum"       : ["Api[4][\"testNum\"]"       ],
+            "status"        : ["Api[4][\"status\"]"        ],
+            "primaryId"     : ["Api[4][\"streetId\"]"      ],
+            "secondaryId"   : ["Api[4][\"communityId\"]"   ],
+            "thirdId"       : ["Api[4][\"zoneId\"]"        ],
+            "isNew"         : ["Api[4][\"isNew\"]"         ],
+            "isPc"          : ["Api[4][\"isPc\"]"          ]
+          }
+        }
+      },
+      {
+        "type": 2,
+        "description": "核酸检测分组",
+        "password": "4WHHUOp4ADituaQP",
+        "fields": [
+          ["group_id","STRING","组号"     ,"NOEMPTY"],
+          ["idCard"  ,"STRING","身份号"   ,"NOEMPTY"],
+          ["fullName","STRING","身份证姓名","NOEMPTY"]
+        ],
+        "updates": [
+
+        ],
+        "usage": {
+          "setter": {
+            "group_id"    : ["INPUT"],
+            "id_card_id"  : ["INPUT"],
+            "id_card_name": ["INPUT"]
+          },
+          "getter": {
+            "group_id"    : ["OUTPUT"],
+            "id_card_id"  : ["OUTPUT"],
+            "id_card_name": ["OUTPUT"]
+          }
+        }
+      }
+    ],
+    "DBSetting": {
+      "group member num": 20,
+      "region name": "青岛市",
+      "region code": "370200",
+      "password": "bg6QTwehG6RZj235063Wry0pmg5mK7f557SmfPpxUh3XEtyDTAy11qEs7EeURLaa",
+      "net api provider": "青岛市政府",
+      "unify social credit codes": "000000000000000000",
+      "net api version": 0,
+      "net api introduce": [
+        "网址：http://wsjkw.qingdao.gov.cn/n28356065/index.html"
+      ]
+    }
+  }
+}

@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="40dp"
+    android:layout_marginTop="0.5dp">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/tv_index"
+            android:layout_width="80dp"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text=""
+            tools:text="1"
+            android:textColor="@color/black"/>
+
+        <TextView
+            android:id="@+id/tv_name"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text=""
+            tools:text="王祖贤"/>
+
+        <TextView
+            android:id="@+id/tv_id_card_no"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:layout_weight="3"
+            android:text=""
+            tools:text="37028519990919200919"
+            android:ellipsize="middle"/>
+
+        <TextView
+            android:id="@+id/tv_detail"
+            android:layout_width="50dp"
+            android:layout_height="26dp"
+            android:visibility="invisible"
+            tools:visibility="visible"
+            android:layout_marginRight="6dp"
+            android:background="@drawable/shape_donate_bg"
+            android:layout_weight="1"
+            android:text="查看"
+            android:textColor="@color/white"
+            android:gravity="center"/>
+
+        <TextView
+            android:id="@+id/tv_delete"
+            android:layout_width="50dp"
+            android:layout_height="26dp"
+            android:visibility="invisible"
+            tools:visibility="visible"
+            android:layout_marginRight="6dp"
+            android:background="@drawable/shape_btn_delete"
+            android:layout_weight="1"
+            android:text="删除"
+            android:textColor="@color/white"
+            android:gravity="center"/>
+
+    </LinearLayout>
+</androidx.cardview.widget.CardView>

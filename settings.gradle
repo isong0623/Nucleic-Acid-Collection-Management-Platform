@@ -1,0 +1,2 @@
+include ':app',':libBaiduOcr', ':libSecurity', ':libFilePicker', ':libChineseTTS'
+rootProject.name = "Nucleic-Acid-Collection-Management-Platform"

@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:focusableInTouchMode="true"
+    android:focusable="true">
+
+    <com.dreaming.hscj.widget.InputView
+        android:id="@+id/iv_img_width"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        app:nText="图片宽度："
+        app:vText="2480"
+        app:vHint="请输入图片宽度，单位为像素，默认为A4宽度"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <com.dreaming.hscj.widget.InputView
+        android:id="@+id/iv_img_height"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:layout_marginTop="1dp"
+        app:nText="图片高度："
+        app:vText="3508"
+        app:vHint="请输入图片高度，单位为像素，默认为A4高度"
+        app:layout_constraintTop_toBottomOf="@+id/iv_img_width"/>
+
+    <com.dreaming.hscj.widget.InputView
+        android:id="@+id/iv_img_h_num"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:layout_marginTop="1dp"
+        app:nText="每行码个数："
+        app:vText="6"
+        app:layout_constraintTop_toBottomOf="@+id/iv_img_height"/>
+
+    <com.dreaming.hscj.widget.InputView
+        android:id="@+id/iv_img_gap"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:layout_marginTop="1dp"
+        app:nText="生成码间距："
+        app:vText="30"
+        app:vHint="请输入二维码间距，单位为像素"
+        app:layout_constraintTop_toBottomOf="@+id/iv_img_h_num"/>
+
+    <include
+        android:id="@+id/part_add_mini"
+        layout="@layout/activity_nucleic_acid_sampling_part_add_mini"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="15dp"
+        android:visibility="invisible"
+        tools:visibility="visible"
+        app:layout_constraintBottom_toTopOf="@+id/part_search"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintStart_toStartOf="parent"/>
+
+    <include
+        android:id="@+id/part_search"
+        layout="@layout/activity_nucleic_acid_sampling_part_search"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:visibility="invisible"
+        tools:visibility="visible"
+        android:layout_marginBottom="15dp"
+        app:layout_constraintBottom_toTopOf="@+id/part_add"/>
+
+    <include
+        android:id="@+id/part_add"
+        layout="@layout/activity_nucleic_acid_sampling_part_add"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

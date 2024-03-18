@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:focusable="true"
+    android:focusableInTouchMode="true">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:background="@color/white"
+                android:layout_marginLeft="4dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="1dp"
+                    android:text="文件名称"
+                    android:textColor="#616161"/>
+
+                <com.dreaming.hscj.widget.ClearEditView
+                    android:id="@+id/ev_file_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@null"
+                    android:hint="请输入离线文件名称"
+                    android:imeOptions="actionSearch"
+                    android:text="" />
+
+            </LinearLayout>
+
+            <com.dreaming.hscj.widget.InputView
+                android:id="@+id/iv_sampling_address"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout_marginTop="1dp"
+                app:nText="采样地点"
+                app:vHint="请输入采样地点"
+                app:vTextColor="@color/black"
+                app:vTextSize="16sp"/>
+
+            <com.dreaming.hscj.widget.InputView
+                android:id="@+id/iv_sampling_people"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout_marginTop="1dp"
+                app:nText="采样人员"
+                app:vHint="请输入采样人员姓名"
+                app:vTextColor="@color/black"
+                app:vTextSize="16sp"/>
+
+            <com.dreaming.hscj.widget.InputView
+                android:id="@+id/iv_sender_people"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout_marginTop="1dp"
+                app:nText="送样人员"
+                app:vHint="请输入送样人员姓名"
+                app:vTextColor="@color/black"
+                app:vTextSize="16sp"/>
+
+            <com.dreaming.hscj.widget.InputView
+                android:id="@+id/iv_send_phone"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout_marginTop="1dp"
+                app:nText="送样人电话"
+                app:vHint="请输入送样人员联系电话"
+                app:vTextColor="@color/black"
+                app:vTextSize="16sp"/>
+
+            <LinearLayout
+                android:id="@+id/ll_send_date"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout_marginTop="1dp"
+                android:layout_marginLeft="4dp"
+                android:background="@color/white"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                xmlns:android="http://schemas.android.com/apk/res/android">
+
+                <TextView
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="1dp"
+                    android:text="送检时间"
+                    android:textColor="#616161"/>
+
+                <com.dreaming.hscj.widget.ClearEditView
+                    android:id="@+id/ev_send_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="15dp"
+                    android:layout_weight="1"
+                    android:hint="请输入送检时间"
+                    android:background="@null"
+                    android:imeOptions="actionSearch"
+                    android:maxLines="1"
+                    android:textSize="16sp"
+                    android:selectAllOnFocus="true"
+                    android:text="" />
+
+                <ImageView
+                    android:id="@+id/iv_send_date"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:padding="5dp"
+                    android:layout_marginRight="10dp"
+                    android:gravity="center"
+                    android:src="@drawable/ic_date_picker"/>
+
+            </LinearLayout>
+
+            <com.dreaming.hscj.widget.InputView
+                android:id="@+id/iv_receiver_people"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout_marginTop="1dp"
+                app:nText="接收人员"
+                app:vHint="请输入接收人员姓名"
+                app:vTextColor="@color/black"
+                app:vTextSize="16sp"/>
+
+            <LinearLayout
+                android:id="@+id/ll_receive_date"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout_marginLeft="4dp"
+                android:background="@color/white"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                xmlns:android="http://schemas.android.com/apk/res/android">
+
+                <TextView
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:text="接收时间"
+                    android:textColor="#616161"/>
+
+                <com.dreaming.hscj.widget.ClearEditView
+                    android:id="@+id/ev_receive_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="15dp"
+                    android:layout_weight="1"
+                    android:background="@null"
+                    android:imeOptions="actionSearch"
+                    android:hint="请输入接收时间"
+                    android:maxLines="1"
+                    android:textSize="16sp"
+                    android:selectAllOnFocus="true"
+                    android:text="" />
+
+                <ImageView
+                    android:id="@+id/iv_receive_date"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:padding="5dp"
+                    android:layout_marginRight="10dp"
+                    android:gravity="center"
+                    android:src="@drawable/ic_date_picker"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
+    <TextView
+        android:id="@+id/tv_delete"
+        android:layout_width="0dp"
+        android:layout_height="30dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:background="@drawable/shape_match_width_btn_red"
+        android:gravity="center"
+        android:text="删除离线文件"
+        android:textSize="18sp"
+        android:textColor="@color/white"
+        android:layout_marginBottom="30dp"
+        app:layout_constraintBottom_toTopOf="@+id/tv_save"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_save"
+        android:layout_width="0dp"
+        android:layout_height="30dp"
+        android:layout_marginBottom="20dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:background="@drawable/shape_match_width_btn"
+        android:gravity="center"
+        android:text="保存修改内容"
+        android:textSize="18sp"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

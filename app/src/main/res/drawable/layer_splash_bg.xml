@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:opacity="opaque">
+    <item>
+        <shape>
+            <solid android:color="@color/app_theme_color"/>
+        </shape>
+    </item>
+    <item
+        android:width="@dimen/screenwidth"
+        android:height="@dimen/screenheight"
+        android:gravity="center">
+        <shape xmlns:android="http://schemas.android.com/apk/res/android">
+            <!--实现应用背景颜色渐变-->
+            <gradient
+                android:startColor="@color/app_theme_color"
+                android:endColor="@color/app_theme_color"
+                android:angle="270"/>
+        </shape>
+    </item>
+
+    <item android:bottom="280dp">
+        <bitmap
+            android:gravity="center"
+            android:filter="true"
+            android:antialias="true"
+            android:src="@drawable/bg_splash_center"
+            android:tileMode="disabled"/>
+    </item>
+
+    <item
+        android:gravity="center|bottom"
+        android:bottom="50dp"
+        android:drawable="@drawable/bg_splash_bottom"/>
+</layer-list>

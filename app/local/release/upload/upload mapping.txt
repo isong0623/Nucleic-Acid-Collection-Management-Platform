@@ -1,0 +1,1 @@
+java -jar buglyqq-upload-symbol.jar -appid "031e4fbe9b" -appkey "f5cfbb3c-df42-46f8-b832-fb558a2dfa21" -bundleid "com.dreaming.hscj" -version "1.6" -platform "Android" -inputMapping "D:\My_Developments\Dreaming\flutter_tests\hscj\app\local\release\v1.6\mapping\release\mapping.txt"

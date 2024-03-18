@@ -1,0 +1,390 @@
+{
+  "ApiTemplate": {
+    "Api": [
+      {
+        "type": 0,//请求类型：登录
+        "url": "https://hsjc.example.com/api/login",//请求主机地址
+        "interval": "1000",//请求间隔时间（毫秒）
+        "request": {//请求配置
+          "type": "POST",//请求类型：POST
+          "uploading": "PARAM",//请求方式get形式的参数组装 如 www.example.cm/api?a=dsd&b=10
+          "params": [
+            ["username", "STRING" , "登录账号", "NOEMPTY"],//ApiParam 字段名 类型 描述 默认值
+            ["password", "STRING" , "登录密码", "NOEMPTY"]
+          ],
+          "converts": ["password","username"],//转换字段列表
+          "algorithms": [
+            [//对应 password
+              ["ENCRYPT","SecretKeyOfData","AES/ECB/PKCS7Padding","TEST","+tbjC1wVysGsPjtIWAsW+A=="],//Algorithm 算法类型 秘钥 详细类型 测试字符串 期望加密后的字符串
+              ["ENCRYPT",""                ,"URL"]//URL加密不需要秘钥 //该加密不作验证 //注意组装方式为Param方式默认对所有参数进行URLENCODE
+            ],
+            [//对应 username
+              ["ENCRYPT","SecretKeyOfData","AES/ECB/PKCS7Padding"],//该加密不作验证
+              ["ENCRYPT",""               ,"URL"]//该加密不作验证
+            ]
+          ]
+		  //请求头可以为空，否则取其固定默认值
+		  //登录页面若用户在1小时内有三次登录失败记录，则下一次调用与上一次调用时间至少需间隔60秒后调用，此处为APP端写死的逻辑。
+        },
+        "response": {
+          "assert": ["R[\"code\"]==0", "R[\"data\"]!=null"],//正确body判定
+          "entity": "R[\"data\"]",//实体定位
+          "fields": [//若返回数组此作为数组子项解析列表，以下字段将会保留可供其他接口调用
+            ["token"        , "STRING"                  , "令牌"        , ""],
+            ["expireAt"     , "DATE:yyyy-MM-dd HH:mm:ss", "到期时间"    , ""],
+            ["username"     , "STRING"                  , "登录用户名"  , ""],
+            ["isAdmin"      , "BOOL"                    , "管理权限"    , ""],
+            ["memberName"   , "STRING"                  , "管理员姓名"  , ""],
+            ["mobile"       , "STRING"                  , "管理员手机号", ""],
+            ["regionCode"   , "STRING"                  , "市区号"      , ""],
+            ["regionName"   , "STRING"                  , "市区"        , ""],
+            ["gridId"       , "STRING"                  , "乡镇号"      , ""],
+            ["gridName"     , "STRING"                  , "乡镇"        , ""],
+            ["samplingCode" , "STRING"                  , "采样点ID"    , ""],
+            ["samplingName" , "STRING"                  , "采样点"      , ""],
+            ["samplingId"   , "STRING"                  , "测试点ID"    , ""]
+          ]
+        }
+      },
+      {
+        "type": 1,//获取社区信息
+        "url": "https://hsjc.example.com/api/getCommunityInfo",
+        "interval": "1000",
+        "request": {
+          "type": "POST",
+          "uploading": "JSON",
+          "params": [],
+          "headers": [
+            ["Authorization", "STRING", "接口访问令牌", ""]
+          ],
+          "fillAuthorization": true,
+          "authorization": "Authorization"
+        },
+        "response": {
+          "assert": ["R[\"code\"]==0", "R[\"data\"]!=null"],
+          "entity": "R[\"data\"]",
+          "fields": [//以下字段将会保留可供其他接口调用
+            ["username"      , "STRING", "登录用户名"  , ""],
+            ["mobile"        , "STRING", "管理员手机号", ""],
+            ["regionCode"    , "STRING", "市区号"      , ""],
+            ["regionName"    , "STRING", "市区"        , ""],
+            ["gridId"        , "STRING", "乡镇号"      , ""],
+            ["samplingCode"  , "STRING", "采样点ID"    , ""],
+            ["samplingName"  , "STRING", "采样点"      , ""]
+          ]
+        }
+      },
+      {
+        "type": 2,
+        "url": "https://hsjc.example.com/api/getSamplingRecord",
+        "interval": "1000",
+        "request": {
+          "type": "POST",
+          "uploading": "JSON",
+          "params": [
+            ["tubeNo", "STRING", "采样管ID", "NOEMPTY", "" , "INPUT"]//必须是条码字段，且只能有一个参数，且参数获取类型只能为INPUT，否则会请求失败
+          ],
+          "headers": []
+        },
+        "response": {
+          "assert": ["R[\"code\"]==0", "R[\"data\"]!=null"],
+          "entity": "R[\"data\"]",
+          "fields": [//返回结果必须是JSONArray 
+            [
+              ["peopleId"    , "STRING", "用户ID"    , ""],
+              ["idCard"      , "STRING", "身份号"    , ""],
+              ["memberName"  , "STRING", "姓名"      , ""],
+              ["address"     , "STRING", "地址"      , ""],
+              ["mobile"      , "STRING", "手机"      , ""],
+              ["samplingName", "STRING", "采集点名称", ""],
+              ["testStatus"  , "STRING", "采集状态"  , "" ,"{\"0\":\"待送检\",\"1\":\"已送检\",\"2\":\"已送检\",\"3\":\"已完成\"}"]
+            ]
+          ]
+        }
+      },
+      {
+        "type": 3,
+        "url": "https://hsjc.example.com/api/getMemberInfo",
+        "interval": "1000",
+        "request": {
+          "type": "POST",
+          "uploading": "JSON",
+          "params": [
+            ["idCard", "STRING", "身份号", "NOEMPTY"]
+          ],
+          "headers": [
+            ["Authorization", "STRING", "接口访问令牌", ""]
+          ],
+          "fillAuthorization": true,
+          "authorization": "Authorization"
+        },
+        "response": {
+          "assert": ["R[\"code\"]==0"],
+          "entity": "R[\"data\"][\"result\"]",
+          "fields": [//返回结果必须是JSON，如果是JSONArray则取第一条记录（非空）
+            ["id"            , "STRING"                  , "id"      , ""    ],
+            ["memberName"    , "STRING"                  , "姓名"    , ""    ],
+            ["idCard"        , "STRING"                  , "身份号", ""    ],
+            ["mobile"        , "STRING"                  , "手机"    , ""    ],
+            ["sex"           , "INTEGER"                 , "性别"    , ""    ]
+          ]
+        }
+      },
+      {
+        "type": 4,
+        "url": "https://hsjc.example.com/api/commitSampling",
+        "interval": "1000",
+        "request": {
+          "type": "POST",
+          "uploading": "JSON",
+          "params": [
+            ["memberName" , "STRING", "姓名"        , "NOEMPTY" ],
+            ["idCard"     , "STRING", "身份号"      , "NOEMPTY" ],
+            ["idType"     , "STRING", "认证类型"    , "1"       ],
+            ["mobile"     , "STRING", "电话"        , "NOEMPTY" ],
+            ["tubeNo"     , "STRING", "采样试管编号", ""        , "" , "INPUT"],
+			["peopleId"   , "STRING", "用户ID"      , ""        ]
+          ],
+          "headers": [
+            ["Authorization", "STRING", "接口访问令牌", ""]
+          ],
+		  "fillAuthorization": true,
+          "authorization": "Authorization"
+        },
+        "response": {
+          "assert": ["R[\"code\"]==0"],//只要assert判断正确即为提交成功
+          "entity": "R[\"data\"]",
+          "fields": [//此结果不作展示和处理
+            ["tubeNo" , "STRING", "试管编号", ""],
+            ["value"  , "STRING", "状态"    , ""]
+          ]
+        }
+      },
+      {
+        "type": 5,
+        "url": "https://hsjc.example.com/api/delSampling",
+        "interval": "1000",
+        "request": {
+          "type": "POST",
+          "uploading": "JSON",
+          "params": [//此接口依赖Api[6] 若Api[6]没有调用过，会调用Api[6]获取返回实体，例如在条码扫描页面，首先会请求Api[2],根据Api[2]与数据库的对应关系（见DB[1]usage）可以得到对应的成员记录，随后调用Api[6]其参数从数据库及条码中取得，随后获取到填充至请求参数并调用
+            ["ids"    , "STRING", "采样ID"    , "NOEMPTY" , "" , "Api[6][\"id\"]"],
+            ["reason" , "STRING", "认证类型"  , ""        , "" , "INPUT" ]//不处理任何带有INPUT的值（仅取默认值），此处reason若是非空字段则会调用失败，否则取其默认值
+          ],//注意接口若有依赖，不能形成死循环，否则调用失败，例如 a 依赖 b , b依赖c，c依赖a
+		  ////必须至少有一个字段能够定位DB[1]记录，且在usage声明
+          "headers": [
+            ["Authorization", "STRING", "接口访问令牌", ""]
+          ],
+		  "fillAuthorization": true,
+          "authorization": "Authorization"
+        },
+        "response": {//只要assert判断正确即为删除成功
+          "assert": ["R[\"code\"]==0","R[\"data\"]==true"],
+          "entity": "R[\"data\"]",
+          "fields": []//请求体不作处理和展示
+        }
+      },
+      {
+        "type": 6,
+        "url": "https://hsjc.qingdao.gov.cn/api/histOfSampling",
+        "interval": "1000",
+        "request": {
+          "type": "POST",
+          "uploading": "JSON",
+          "params": [
+            ["pageNum"  , "INTEGER", "查询页号", "1"   , "{\"String.format\":\"第%d页\"}", "INPUT"],
+            ["pageSize" , "INTEGER", "分页页数", "10"  , "{\"String.format\":\"共%d页\"}", "INPUT"],
+            ["idCard"   , "STRING" , "身份号", "null", ""                              , "INPUT","datablock@idCard"],
+            ["startTime", "DATE"   , "开始时间", "null", ""                              , "INPUT"],
+            ["endTime"  , "DATE"   , "结束时间", "null", ""                              , "INPUT"],
+            ["tubeNo"   , "STRING" , "试管编号", "null", ""                              , "INPUT"]
+          ],
+          "headers": [
+            ["Authorization", "STRING", "接口访问令牌", ""]
+          ],
+		  "fillAuthorization": true,
+          "authorization": "Authorization"
+        },
+        "response": {
+          "assert": ["R[\"code\"]==0"],
+          "entity": "R[\"data\"][\"result\"]",
+          "fields": [//此处以下字段将会作为查找结果展示
+            ["id"              , "STRING", "采样ID"     , ""],
+			["peopleId"        , "STRING", "用户ID"     , ""],
+            ["memberName"      , "STRING", "姓名"       , ""],
+            ["address"         , "STRING", "地址"       , ""],
+            ["mobile"          , "STRING", "手机号"     , ""],
+            ["idCard"          , "STRING", "身份号"     , ""],
+            ["tubeNo"          , "STRING", "试管编号"    , ""],
+            ["gatheringTime"   , "STRING", "采集时间"    , ""],
+            ["samplingId"      , "STRING", "采样点编号"  , ""],
+            ["samplingName"    , "STRING", "采样点名称"  , ""]
+          ]
+        }
+      }
+    ],
+    "ApiConfig": {
+      "locate": {
+        "authorization": {
+          "token"  : "Api[0][\"token\"]",
+          "expired": "Api[0][\"expireAt\"]"
+        },
+		
+        "community_info": {//以下字段将在【社区信息】页面展示 注意只能取Api[0] 或 Api[1]
+          "username"      : "Api[0][\"username\"]",
+          "isAdmin"       : "Api[0][\"isAdmin\"]",
+          "memberName"    : "Api[0][\"memberName\"]",
+          "mobile"        : "Api[0][\"mobile\"]",
+          "regionCode"    : "Api[0][\"regionCode\"]",
+          "regionName"    : "Api[0][\"regionName\"]",
+          "gridId"        : "Api[0][\"gridId\"]",
+          "gridName"      : "Api[0][\"gridName\"]",
+          "samplingCode"  : "Api[1][\"samplingCode\"]",
+          "samplingName"  : "Api[1][\"samplingName\"]"
+        },
+        "scan": {
+          "barcode": ["Api[2][\"tubeNo\"]","Api[4][\"tubeNo\"]" ,"Api[6][\"tubeNo\"]"],
+          "id card": ["Api[3][\"idCard\"]","Api[4][\"idCard\"]" ,"Api[6][\"idCard\"]"]
+        },
+		"card": {//唯一字段配置
+          "normal": [//常规配置
+            "ID Card",//支持身份证号
+            "Passport Card",//支持护照
+            "HM Card",//支持港澳通行证
+            "TW Card",//支持台湾通行证
+            "Officer Card"//支持军官证
+          ],
+          "other": [//自定义配置
+			{
+				"name":"户口簿号",
+				"regex":"\\d{9}"
+			}
+		  ]
+        },
+		//id可以为空，表示平台采用身份号为唯一字段
+        "id": ["Api[3][\"id\"]"]//指定平台id字段只能从Api[3]获取，当录入的用户从未采样过，会在调用Api[4]后，调用Api[3]并更新本地数据库，更新id  //程序也会在初始化时对数据库中该对应平台id字段为空的记录进行同步更新
+      },
+      "test": {
+        "account": "",
+        "password": ""
+      },
+      "permission": {
+        "allow remember password": true,
+        "allow auto login": true,
+        "allow auto refresh token": true
+      }
+    }
+  },
+
+  "DatabaseTemplate": {
+    "DB": [
+      {
+        "type":0,
+        "description": "基础导入数据库", 
+        "password": "vl8eUhoajsTRHLu8bMlRIcw3K3ljXxmt", //密码自定义 在模板管理页面5s内点击标题7次 输入此密码进入Api测试页面
+        "fields": [
+          ["idCard"    ,"STRING","身份号码"  ,"NOEMPTY"],//位置固定，必须为身份号码
+          ["memberName","STRING","身份号姓名","NOEMPTY"] //位置固定，必须为身份号姓名
+        ],
+        "usage": {
+          "setter": {
+            "id_card_no"  : ["EXCEL"],//必须声明已定义所有字段
+            "id_card_name": ["EXCEL"]
+          },
+          "getter": {
+            "id_card_no": ["Api[3][\"idCard\"]"]
+          }
+        }
+      },
+      {
+        "type": 1,
+        "description": "采样上传数据库",
+        "password": "l56gaaEJRvq5HLfPFERxrFe3aCTkpG4l",//
+        "fields": [
+          ["idCard"        , "STRING"                  , "身份号"    , "NOEMPTY"],//位置固定，必须为身份号码，且与DB[0]字段名一致
+          ["memberName"    , "STRING"                  , "姓名"      , "NOEMPTY"],//位置固定，必须为身份号姓名，且与DB[0]字段名一致
+          ["sex"           , "INTEGER"                 , "性别"      , ""       ,"{\"1\":\"男\",\"0\":\"女\"}"],
+          ["mobile"        , "STRING"                  , "手机"      , "NOEMPTY"],
+          ["address"       , "STRING"                  , "地址"      , ""       ],
+          ["createdTime"   , "DATE:yyyy-MM-dd HH:mm:ss", "创建时间"  , "NOW"    ],
+          ["updatedTime"   , "DATE:yyyy-MM-dd HH:mm:ss", "更新时间"  , "NOW"    ],
+		  ["id"            , "STRING"                  , "平台用户ID", ""       ]
+        ],
+        "usage": {
+          "setter": {         //保存 setter只保存Api[3]的返回体 其他作为查询标记
+            "memberName"    : ["Api[3][\"memberName\"]"],
+            "idCard"        : ["Api[3][\"idCard\"]"    ],
+            "sex"           : ["Api[3][\"sex\"]"       ],
+            "mobile"        : ["Api[3][\"mobile\"]"    ],
+            "address"       : ["Api[3][\"address\"]"   ],//解释Api[2]: 在条码采样页面会获取条码采样记录，此返回实体会根据peopleId查找数据库具有该值的数据 Api[6]同理
+            "id"            : ["Api[3][\"id\"]"        ,"Api[2][\"peopleId\"]"     ,"Api[6][\"peopleId\"]"]
+          },
+          "getter": {         //
+            "memberName"    : ["Api[4][\"memberName\"]"],//解释Api[3]:在成员录入页面用于定位db数据以及请求Api[3] Api[6]同理
+            "idCard"        : ["Api[4][\"idCard\"]"    ,"Api[3][\"idCard\"]"        ,"Api[6][\"idCard\"]"],
+            "mobile"        : ["Api[4][\"mobile\"]"    ],
+            "address"       : ["Api[4][\"address\"]"   ],
+            "id"            : ["Api[4][\"peopleId\"]"  ]
+          }
+        }
+      },
+      {
+        "type": 2,
+        "description": "核酸检测分组",
+        "password": "LLGHEX4PVWYDynydFzdw1083solOd4hO",//密码自定义
+        "fields": [
+          ["group_id"  ,"STRING","组号"      ,"NOEMPTY"],//位置固定 必须为组名
+          ["idCard"    ,"STRING","身份号"  ,"NOEMPTY"],//位置固定 必须为身份号码 字段名必须与DB[0]字段名一致
+          ["memberName","STRING","身份号姓名","NOEMPTY"] //位置固定 必须为身份号姓名 字段名必须与DB[0]字段名一致
+        ],
+        "updates": [
+          {
+            "version": 0,
+            "del": ["memberName"],//删除后的字段 之后升级不可使用、不可改动
+            "add": [
+              ["sex", "INTEGER", "性别", "","{\"1\":\"男\",\"0\":\"女\"}"]
+            ],
+            "alter": {
+              "idCard": ["idCard"  ,"STRING","身份号码"  ,"NOEMPTY"]
+            },
+            "move": {
+              "idCard": 0
+            },
+            "usage": {
+              "setter": {
+                "sex" : ["INPUT"]
+              },
+              "getter": {}
+            }
+          }
+        ],
+        "usage": {
+          "setter": {
+            "group_id"    : ["INPUT"],
+            "id_card_id"  : ["INPUT"],
+            "id_card_name": ["INPUT"]
+          },
+          "getter": {
+            "group_id"    : ["OUTPUT"],
+            "id_card_id"  : ["OUTPUT"],
+            "id_card_name": ["OUTPUT"]
+          }
+        }
+      }
+    ],
+    "DBSetting": {//注意"region code" + "unify social credit codes" 唯一定位数据库路径: /data/data/com.dreaming.hscj/databases/resion_name/unify_social_credit_codes/
+      "group member num": 10,//核酸采样一个条码采10个人
+      "region name": "青岛市",//适配区域 将会在登录页展示
+      "region code": "370200",//区域代码
+	  "password":"oz5pjJr7bFCwznnVq1R8lXbsVCaL5OMroMyvK2LFyOms2znnVcDrDpYKhk2XvaYufN",//模板验证口令
+      "net api provider": "青岛市政府",//适配单位名，将在【关于】页面展示
+      "unify social credit codes": "XXXXXXXXXXXXXXXXXX",//适配单位统一社会信用代码
+      "net api version": 1,//适配模板版本号，再次适配需要增加，不得降级使用，适配完毕后若增加
+      "net api introduce": [//适配单位信息，将在【关于】页面展示
+        "网址：http://wsjkw.qingdao.gov.cn/n28356065/index.html",
+		"电话：0532-8343XXXX"
+      ]
+    }
+  }
+}
+

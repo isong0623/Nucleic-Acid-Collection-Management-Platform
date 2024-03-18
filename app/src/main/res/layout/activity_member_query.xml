@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <include
+        layout="@layout/activity_member_query_part_title_query_all"
+        android:id="@+id/part_title_query_all"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:visibility="invisible"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <include
+        layout="@layout/activity_member_query_part_title_query_group"
+        android:id="@+id/part_title_query_group"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:visibility="invisible"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <include
+        layout="@layout/activity_member_query_part_title_select_all"
+        android:id="@+id/part_title_select_all"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:visibility="invisible"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <include
+        layout="@layout/activity_member_query_part_title_select_group"
+        android:id="@+id/part_title_select_group"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:visibility="invisible"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_data"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginBottom="6dp"
+        android:overScrollMode="never"
+        app:layout_constraintTop_toBottomOf="@+id/part_title_query_all"
+        app:layout_constraintBottom_toTopOf="@+id/part_jumping"/>
+
+    <TextView
+        android:id="@+id/tv_data_empty"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:paddingLeft="6dp"
+        android:paddingRight="6dp"
+        android:paddingTop="3dp"
+        android:paddingBottom="3dp"
+        android:text="没有查询到数据~"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/rv_data"
+        app:layout_constraintBottom_toTopOf="@+id/part_jumping"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.1dp"
+        android:background="@color/bg_gray"
+        android:layout_marginBottom="3dp"
+        app:layout_constraintBottom_toTopOf="@+id/part_jumping"/>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/part_jumping"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent">
+
+        <TextView
+            android:id="@+id/tv_last_page"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="6dp"
+            android:paddingRight="6dp"
+            android:paddingTop="3dp"
+            android:paddingBottom="3dp"
+            android:background="@drawable/selector_btn"
+            android:text="上一页"
+            android:textColor="@color/white"
+            android:enabled="false"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/v_bottom"
+            app:layout_constraintLeft_toLeftOf="parent"/>
+
+
+        <com.dreaming.hscj.widget.ClearEditView
+            android:id="@+id/ev_page"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:paddingRight="18dp"
+            android:paddingLeft="18dp"
+            android:background="@null"
+            android:text="1"
+            android:textSize="14sp"
+            android:maxLines="1"
+            android:maxLength="5"
+            android:singleLine="true"
+            android:inputType="number"
+            android:digits="0123456789"
+            android:gravity="center"
+            app:layout_constraintTop_toTopOf="@+id/tv_jump"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintBottom_toTopOf="@+id/v_bottom"
+            app:layout_constraintRight_toLeftOf="@+id/tv_jump"
+            app:layout_constraintLeft_toLeftOf="parent"/>
+
+        <TextView
+            android:id="@+id/tv_jump"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/shape_donate_bg"
+            android:paddingLeft="6dp"
+            android:paddingRight="6dp"
+            android:paddingTop="3dp"
+            android:paddingBottom="3dp"
+            android:text="跳转"
+            android:textColor="@color/white"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/v_bottom"
+            app:layout_constraintLeft_toRightOf="@+id/ev_page"
+            app:layout_constraintRight_toRightOf="parent"/>
+
+        <TextView
+            android:id="@+id/tv_next_page"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/selector_btn"
+            android:paddingLeft="6dp"
+            android:paddingRight="6dp"
+            android:paddingTop="3dp"
+            android:paddingBottom="3dp"
+            android:text="下一页"
+            android:textColor="@color/white"
+            android:enabled="false"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/v_bottom"
+            app:layout_constraintRight_toRightOf="parent"/>
+
+        <View
+            android:id="@+id/v_bottom"
+            android:layout_width="match_parent"
+            android:layout_height="0.1dp"
+            android:background="@color/bg_gray"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <TextView
+        android:id="@+id/tv_finish"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:layout_marginLeft="60dp"
+        android:layout_marginRight="60dp"
+        android:layout_marginBottom="80dp"
+        android:background="@drawable/shape_match_width_btn"
+        android:gravity="center"
+        android:text="完成选择"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:textColor="@color/white"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

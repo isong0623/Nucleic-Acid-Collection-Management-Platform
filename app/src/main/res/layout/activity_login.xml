@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:theme="@style/LoginTheme"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/app_theme_color"
+    >
+
+    <ImageView
+        android:id="@+id/img_top_logo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toStartOf="@+id/tv_point"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginBottom="10dp"
+        android:layout_marginRight="10dp"
+        app:layout_constraintBottom_toTopOf="@+id/tv_title"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintVertical_chainStyle="packed"
+        app:srcCompat="@drawable/ic_hsjc" />
+
+    <TextView
+        android:id="@+id/tv_point"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="·"
+        android:textColor="#ffffff"
+        android:textSize="40sp"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:layout_marginRight="8dp"
+        app:layout_constraintBottom_toBottomOf="@+id/img_top_logo"
+        app:layout_constraintEnd_toStartOf="@+id/tv_adapt_region"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toEndOf="@+id/img_top_logo"
+        app:layout_constraintTop_toTopOf="@+id/img_top_logo"/>
+
+    <TextView
+        android:id="@+id/tv_adapt_region"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="青岛市"
+        android:textColor="#ffffff"
+        android:textSize="28sp"
+        android:textStyle="bold"
+        android:gravity="center"
+        app:layout_constraintBottom_toBottomOf="@+id/img_top_logo"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toEndOf="@+id/tv_point"
+        app:layout_constraintTop_toTopOf="@+id/img_top_logo"/>
+
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="全民核酸采样管理平台"
+        android:textColor="#ffffff"
+        android:textSize="26sp"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:layout_marginTop="10dp"
+        app:layout_constraintBottom_toTopOf="@+id/part_user"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/img_top_logo"
+        app:layout_constraintVertical_chainStyle="packed"/>
+
+    <include
+        android:id="@+id/part_user"
+        layout="@layout/activity_login_part_user"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:layout_marginBottom="5dp"
+        app:layout_constraintVertical_chainStyle="packed"
+        app:layout_constraintBottom_toTopOf="@+id/part_pwd"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <TextView
+        android:id="@+id/tv_app_adapt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="APP接口适配"
+        android:textSize="16sp"
+        android:textColor="#ffffff"
+        android:padding="5dp"
+        app:layout_constraintEnd_toEndOf="@+id/part_pwd"
+        app:layout_constraintTop_toBottomOf="@+id/part_pwd" />
+
+    <include
+        android:id="@+id/part_pwd"
+        layout="@layout/activity_login_part_pwd"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        app:layout_constraintVertical_chainStyle="packed"
+        app:layout_constraintBottom_toTopOf="@+id/tv_login"
+        app:layout_constraintTop_toBottomOf="@id/part_user"/>
+
+
+    <CheckBox
+        android:id="@+id/cb_remember_password"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="记住密码"
+        app:layout_constraintStart_toStartOf="@+id/part_pwd"
+        app:layout_constraintTop_toBottomOf="@+id/part_pwd" />
+
+    <CheckBox
+        android:id="@+id/cb_auto_login"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="自动登录"
+        app:layout_constraintHorizontal_bias="0.4"
+        app:layout_constraintEnd_toStartOf="@+id/tv_app_adapt"
+        app:layout_constraintStart_toEndOf="@+id/cb_remember_password"
+        app:layout_constraintTop_toBottomOf="@+id/part_pwd" />
+
+    <TextView
+        android:id="@+id/tv_login"
+        android:background="@drawable/shape_login"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:layout_marginTop="40dp"
+        android:text="登录"
+        android:gravity="center"
+        android:textStyle="bold"
+        android:textSize="20sp"
+        android:textColor="@color/app_theme_color"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/part_pwd" />
+
+    <ImageView
+        android:id="@+id/img_welfare"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_marginRight="5dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/tv_shown"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_login"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:srcCompat="@drawable/ic_login_welfare" />
+
+    <TextView
+        android:id="@+id/tv_shown"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="社区公益版"
+        android:textSize="18sp"
+        android:textColor="#d81e06"
+        android:textStyle="bold"
+        android:layout_marginLeft="5dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/img_welfare"
+        app:layout_constraintTop_toBottomOf="@+id/tv_login"
+        app:layout_constraintHorizontal_chainStyle="packed"/>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

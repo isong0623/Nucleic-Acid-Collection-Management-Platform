@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tool="http://schemas.android.com/tools"
+    package="com.dreaming.hscj">
+
+    <uses-permission android:name="android.permission.MANAGE_EXTERNAL_STORAGE" />
+
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+    <uses-permission android:name="android.permission.FLASHLIGHT" />
+    <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-feature android:name="android.hardware.camera" />
+    <uses-feature android:name="android.hardware.autofocus"/>
+
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.READ_LOGS" tool:ignore="ProtectedPermissions" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
+
+    <application
+        android:name=".App"
+        android:allowBackup="true"
+        android:icon="@drawable/logo"
+        android:label="@string/app_name"
+        android:largeHeap="true"
+        android:roundIcon="@drawable/logo"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme"
+        android:exported="false"
+        android:screenOrientation="portrait"
+        android:hardwareAccelerated="false"
+        android:usesCleartextTraffic="true"
+        android:requestLegacyExternalStorage="true"
+        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
+        android:alwaysRetainTaskState="true">
+
+        <activity
+            android:name=".activity.system.SplashActivity"
+            android:theme="@style/SplashTheme"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <activity android:name=".activity.menu.MenuActivity" android:launchMode="singleTask" android:alwaysRetainTaskState="true"/>
+
+        <activity android:name=".activity.login.LoginActivity"/>
+
+        <activity android:name=".activity.community.ConfigDatabaseActivity"/>
+        <activity android:name=".activity.community.manage.CommunityMemberDetailActivity"/>
+
+        <activity android:name=".activity.template.test.ApiTestActivity"/>
+        <activity android:name=".activity.template.TemplateManageActivity"/>
+        <activity android:name=".activity.template.adapt.TemplateAdaptActivity"/>
+        <activity android:name=".activity.template.adapt.TemplateAdaptPlanActivity"/>
+        <activity android:name=".activity.template.encrypt.TemplateEncryptActivity"/>
+
+        <activity android:name=".activity.nucleic_acid.sampling.NASamplingActivity"/>
+        <activity android:name=".activity.nucleic_acid.offline_sampling.NAOfflineSamplingActivity"/>
+        <activity android:name=".activity.nucleic_acid.offline_sampling.NAOfflineSamplingEditActivity"/>
+        <activity android:name=".activity.nucleic_acid.offline_sampling.NAOfflineSamplingUploadActivity"/>
+        <activity android:name=".activity.nucleic_acid.batch_grouping.NABatchGroupingActivity"/>
+        <activity android:name=".activity.nucleic_acid.batch_grouping.NABatchGroupingConfigActivity"/>
+        <activity android:name=".activity.nucleic_acid.grouping.NAGroupingActivity"/>
+        <activity android:name=".activity.nucleic_acid.grouping.NAGroupInDetailActivity"/>
+        <activity android:name=".activity.nucleic_acid.grouping.NAGroupingAddActivity"/>
+        <activity android:name=".activity.nucleic_acid.export.NAExportActivity"/>
+        <activity android:name=".activity.nucleic_acid.exchange.NAExchangeActivity"/>
+        <activity android:name=".activity.nucleic_acid.searching.NASearchingActivity"/>
+        <activity android:name=".activity.nucleic_acid.searching.NASearchingResultActivity"/>
+
+        <activity android:name=".activity.community.info.CommunityInfoActivity"/>
+        <activity android:name=".activity.community.manage.CommunityManageActivity"/>
+        <activity android:name=".activity.community.manage.CommunityMemberIDQRShownActivity"/>
+        <activity android:name=".activity.community.input.CommunityInputActivity"/>
+        <activity android:name=".activity.community.batch_input.CommunityBatchInputActivity"/>
+        <activity android:name=".activity.community.batch_input.CommunityBatchInputConfigActivity"/>
+        <activity android:name=".activity.community.search.CommunitySearchActivity"/>
+        <activity android:name=".activity.community.search.CommunitySearchShownQRActivity"/>
+        <activity android:name=".activity.community.backup.CommunityBackupActivity"/>
+        <activity android:name=".activity.community.recovery.CommunityRecoveryActivity"/>
+
+
+        <activity android:name=".activity.donate.DonateActivity"/>
+
+        <activity android:name=".activity.system.SettingsActivity"/>
+        <activity android:name=".activity.system.MemberQueryActivity"/>
+        <activity android:name=".activity.system.AboutActivity"/>
+        <activity android:name=".activity.system.QRGeneratorActivity"/>
+        <activity android:name=".activity.system.HelpActivity"/>
+        <activity android:name=".activity.system.ZxingActivity"/>
+        <activity android:name=".activity.system.FeedbackActivity"/>
+        <activity android:name=".activity.system.RecommendActivity"/>
+
+        <activity
+            android:name="com.tencent.bugly.beta.ui.BetaActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize|locale"
+            android:theme="@android:style/Theme.Translucent" />
+
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="com.dreaming.hscj.fileProvider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/provider_paths"/>
+        </provider>
+        
+    </application>
+
+</manifest>

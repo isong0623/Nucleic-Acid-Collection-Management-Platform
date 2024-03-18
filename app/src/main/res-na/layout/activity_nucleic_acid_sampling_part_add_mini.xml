@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="50dp"
+    android:layout_height="50dp">
+    
+    <ImageView
+        android:id="@+id/iv_sampling_plan_mini"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_sampling_plan" />
+
+    <View
+        android:id="@+id/v_point_mini"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:background="@drawable/shape_sampling_plan_point"
+        app:layout_constraintTop_toTopOf="@+id/iv_sampling_plan_mini"
+        app:layout_constraintBottom_toTopOf="@+id/iv_sampling_plan_mini"
+        app:layout_constraintLeft_toRightOf="@+id/iv_sampling_plan_mini"
+        app:layout_constraintRight_toRightOf="@+id/iv_sampling_plan_mini"/>
+
+    <TextView
+        android:id="@+id/tv_plan_num_mini"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="10"
+        android:textSize="12sp"
+        android:textColor="@color/white"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintLeft_toRightOf="@+id/tv_symbol_add_mini"
+        app:layout_constraintRight_toRightOf="@+id/v_point_mini"
+        app:layout_constraintTop_toTopOf="@+id/v_point_mini"
+        app:layout_constraintBottom_toBottomOf="@+id/v_point_mini"/>
+
+    <TextView
+        android:id="@+id/tv_symbol_add_mini"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="+"
+        android:textSize="10sp"
+        android:textColor="@color/white"
+        android:gravity="center"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintLeft_toLeftOf="@+id/v_point_mini"
+        app:layout_constraintRight_toLeftOf="@+id/tv_plan_num_mini"
+        app:layout_constraintTop_toTopOf="@+id/v_point_mini"
+        app:layout_constraintBottom_toBottomOf="@+id/v_point_mini"/>
+</androidx.constraintlayout.widget.ConstraintLayout>
